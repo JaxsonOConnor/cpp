@@ -21,9 +21,6 @@ public:
             } else {
                 if (nums.at(i) == 9){
                     nums.at(i)++;
-                } else {
-                    nums.at(i++);
-                    break;
                 }
             }
         }
@@ -38,12 +35,17 @@ public:
 };
 
 int main(int argc, char *argv[]){
-    vector<int> vec = {9, 9, 9};
-    
-    Solution s;
-    vec = s.plusOne(vec);
-    
-    for (int num : vec) cout << num << " ";
+    vector<int> vec;
+    for (int i=1; i<argc; i++){
+        vec.push_back(stoi(argv[i]));
+    }
+
+    Solution* s = new Solution();
+    s->plusOne(vec);
+
+    for (int num : vec){
+        cout << num << " ";
+    }
 
     return 0;
 }
