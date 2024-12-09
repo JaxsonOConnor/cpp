@@ -1,39 +1,49 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <stdbool.h>
+#include <cstdlib>
 
 using namespace std;
 
 class Solution{
 public:
-    vector<int> plusOne(vector<int>& num){
-        bool carry = false;
-        for (int i=num.size()-1; i>0; i--){
-            if (num.at(i) == 9){
-                num.at(i) = 0;
-                carry = true;
+    vector<int> plusOne(vector<int>& nums){
+        int i = nums.size()-1;
+        if (nums.at(i) < 9) {nums.at(nums.size()-1)++; return nums;} // edge case
+
+        for (i; i>=0; i--){
+            if (i != nums.size()-1){
+                if (nums.at(i+1) == 10){
+                    nums.at(i)++;
+                    nums.at(i+1)=0;
+                }
             } else {
-                num.at(i)++;
-                break;
+                if (nums.at(i) == 9){
+                    nums.at(i)++;
+                } else {
+                    nums.at(i++);
+                    break;
+                }
             }
         }
-        if (num.at(0) == 9 && carry){
-            num.at(0) = 0;
-            num.insert(num.begin(), 1);
+
+        if (nums.at(0) == 10) {
+            nums.at(0)=0;
+            nums.insert(nums.begin(), 1);
         }
-        return num;
+
+        return nums;
     }
 };
 
-int main(int argc, char **argv){
-    // vector<int> vec = {9, 9, 9};
+int main(int argc, char *argv[]){
+    vector<int> vec = {9, 9, 9};
     
-    // Solution s;
-    // vec = s.plusOne(vec);
+    Solution s;
+    vec = s.plusOne(vec);
     
-    // for (int i=0; i<vec.size(); i++) {
-    //     std::cout << vec.at(i) << " ";
-    // }
+    for (int num : vec) cout << num << " ";
 
     return 0;
 }
